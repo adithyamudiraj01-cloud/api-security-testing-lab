@@ -1,118 +1,92 @@
 # Security Testing Methodology
 
-## 1. Introduction
+## Objective
 
-This document describes the methodology used to test the security of the API Security Testing Lab.
+The objective of this project is to evaluate the security of a REST API by identifying, testing, and mitigating common API vulnerabilities.
 
-The testing was performed against a locally hosted Flask API using Postman and Burp Suite.
+---
 
-## 2. Testing Objective
-
-The main objectives were:
-
-- Identify API authentication weaknesses.
-- Test authorization controls.
-- Identify Broken Object Level Authorization (BOLA).
-- Test for Mass Assignment.
-- Test for Parameter Tampering.
-- Test JWT authentication.
-- Test invalid or modified JWT tokens.
-- Perform SQL-injection-style input testing.
-- Test rate limiting.
-- Verify security headers.
-- Intercept and modify requests using Burp Suite.
-- Verify that security fixes prevent the identified attacks.
-
-## 3. Testing Environment
-
-### Application
-
-Flask-based REST API running locally.
-
-### Base URL
-
-http://127.0.0.1:5000
-
-### Tools
+## Testing Environment
 
 - Python 3.11
 - Flask
 - Visual Studio Code
 - Postman
 - Burp Suite
-- JSON file storage
+- JSON File Storage
 
-## 4. Testing Method
+---
 
-The following general process was used:
+## Security Tests Performed
 
-1. Start the Flask application.
-2. Send normal requests using Postman.
-3. Observe the normal response.
-4. Modify request parameters or authentication information.
-5. Send the modified request.
-6. Analyze the response.
-7. Identify the security issue.
-8. Implement a security control.
-9. Repeat the test.
-10. Compare the vulnerable and fixed behavior.
-11. Capture screenshots as evidence.
+### 1. Broken Object Level Authorization (BOLA)
 
-## 5. BOLA / IDOR Testing
+Verified that authenticated users cannot access resources belonging to other users.
 
-### Objective
+---
 
-To determine whether one authenticated user can access another user's account by changing the object ID.
+### 2. JWT Authentication Testing
 
-### Normal Request
+Verified that protected endpoints require a valid JWT token.
 
-GET /account/1
+---
 
-A JWT belonging to User 1 was used.
+### 3. JWT Tampering
 
-### Attack Request
+Modified a valid JWT and verified that the server rejected the altered token.
 
-GET /account/2
+---
 
-The JWT was kept unchanged while only the account ID was modified.
+### 4. Mass Assignment
 
-### Vulnerable Behavior
+Attempted to submit unauthorized fields such as `role` and `isAdmin` during user registration.
 
-The vulnerable implementation allowed access to another user's account.
+---
 
-### Remediation
+### 5. Parameter Tampering
 
-The API compares the requested account ID with the authenticated user's ID extracted from the JWT.
+Modified transaction parameters (`from_account`, `to_account`, and `amount`) to verify server-side authorization.
 
-### Secure Behavior
+---
 
-User 1 can access:
+### 6. API Key Authentication
 
-GET /account/1
+Implemented an endpoint protected by an API key passed through the `X-API-Key` request header.
 
-User 1 cannot access:
+---
 
-GET /account/2
+### 7. API Key Exposure Testing
 
-The unauthorized request returns:
+Verified that API keys supplied as URL query parameters were rejected. Only API keys sent in the `X-API-Key` header were accepted.
 
-403 Forbidden
+---
 
-## 6. Mass Assignment Testing
+### 8. Rate Limiting
 
-### Objective
+Verified that repeated login attempts were limited to reduce brute-force attacks.
 
-To determine whether a user can add unauthorized properties to a registration request.
+---
 
-### Test Request
+### 9. Security Headers
 
-POST /register
+Verified the presence of the following HTTP security headers:
 
-```json
-{
-    "username": "attacker",
-    "email": "attacker@example.com",
-    "password": "123456",
-    "role": "admin",
-    "isAdmin": true
-}
+- X-Content-Type-Options: nosniff
+- X-Frame-Options: DENY
+- X-XSS-Protection: 1; mode=block
+
+---
+
+## Tools Used
+
+- Postman
+- Burp Suite
+- Flask
+- Python
+- JWT
+
+---
+
+## Conclusion
+
+The API was tested against common security risks including authentication, authorization, request manipulation, API key handling, and rate limiting. The implemented security controls successfully mitigated the tested vulnerabilities.

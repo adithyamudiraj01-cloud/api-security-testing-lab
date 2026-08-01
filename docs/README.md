@@ -59,20 +59,36 @@ api-testing-tool/
 | POST | /login | Login User |
 | GET | /profile | Protected Profile |
 | GET | /account/<id> | Account Details |
-| POST | /transfer | Money Transfer |
+| POST | /transfer | Secure Money Transfer |                
+| GET | /api/data | API Key Protected Endpoint |
 
+# API Security Features
+
+- JWT-based Authentication
+- Object Level Authorization
+- Mass Assignment Protection
+- Parameter Tampering Protection
+- API Key Authentication
+- API Key Exposure Prevention
+- Rate Limiting
+- Security Headers
 ---
 
 # Security Tests
 
+The project demonstrates the following API security concepts:
+
 - Broken Object Level Authorization (BOLA)
+- JWT Authentication
+- JWT Tampering
 - Mass Assignment
 - Parameter Tampering
-- JWT Tampering
-- Invalid JWT
+- API Key Authentication
+- API Key Exposure Testing
 - Rate Limiting
 - Security Headers
 - Burp Suite Request Interception
+- Postman API Testing
 
 ---
 
