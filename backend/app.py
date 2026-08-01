@@ -15,6 +15,7 @@ limiter = Limiter(
         default_limits=[]
 )
 secret_key = "mysecretkey123"  
+API_KEY = "labmentix-api-key-123"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USER_FILE = os.path.join(BASE_DIR, "users.json")
@@ -273,6 +274,24 @@ def transfer():
         "amount": data["amount"],
         "message": "Transfer Successful"
     }, 200
+@app.route("/api/data", methods=["GET"])
+def api_data():
+
+    api_key = request.headers.get("X-API-Key")
+
+    if api_key != API_KEY:
+        return {
+            "message": "Invalid or Missing API Key"
+        }, 401
+
+    return {
+        "message": "API Key Verified",
+        "data": [
+            "Cyber Security",
+            "API Testing",
+            "Burp Suite"
+        ]
+    }
 # ---------------- SECURE ACCOUNT API ----------------
 @app.route("/account/<int:user_id>", methods=["GET"])
 def account(user_id):
