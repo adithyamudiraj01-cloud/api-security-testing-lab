@@ -1,0 +1,4 @@
+Flask
+PyJWT
+Flask-Limiter
+Flask-Cors

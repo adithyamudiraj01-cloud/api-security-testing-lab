@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "username": "Adithya_Postman",
+        "email": "adithya@gmail.com",
+        "password": "123456"
+    },
+    {
+        "id": 2,
+        "username": "rahul",
+        "email": "rahul@gmail.com",
+        "password": "abcdef"
+    },
+    {
+        "id": 3,
+        "username": "testuser",
+        "email": "testuser@gmail.com",
+        "password": "123456"
+    },
+    {
+        "id": 4,
+        "username": "secureuser",
+        "email": "secureuser@gmail.com",
+        "password": "123456"
+    },
+    {
+        "id": 5,
+        "username": "postmanuser",
+        "email": "postmanuser@gmail.com",
+        "password": "123456"
+    },
+    {
+        "id": 6,
+        "username": "postmanuser2",
+        "email": "postmanuser2@gmail.com",
+        "password": "123456"
+    },
+    {
+        "id": 7,
+        "username": "attacker",
+        "email": "attacker_postman@gmail.com",
+        "password": "123456"
+    },
+    {
+        "id": 8,
+        "username": "frontenduser",
+        "email": "frontenduser123@gmail.com",
+        "password": "123456"
+    }
+]
